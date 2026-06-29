@@ -3,7 +3,6 @@
 ## Overview
 
 This project analyzes what happens behind the scenes when I open google.com.
-
 Using Wireshark, I captured and analyzed DNS, TCP, TLS, and HTTPS-related traffic.
 
 ## Environment
