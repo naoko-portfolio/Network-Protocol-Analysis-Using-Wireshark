@@ -1,15 +1,16 @@
-# Network Protocol Analysis Using Wireshark
+# Network Traffic Analysis Using Wireshark
 
 ## Overview
 
-This project analyzes what happens behind the scenes when I open google.com.
-Using Wireshark, I captured and analyzed DNS, TCP, TLS, and HTTPS-related traffic.
+This project analyzes what happens behind the scenes when I open **google.com**.
+Using Wireshark, I captured and analyzed the network traffic, including DNS, TCP, TLS, and HTTPS.
 
 ## Environment
 
 - Windows 11
 - Microsoft Edge
 - Wireshark 4.6.6
+- Figma (network diagrams)
 
 ## Goal
 
@@ -26,11 +27,12 @@ So, I decided to start this project to better understand Wireshark and real netw
 
 ## Steps
 
-1. Start packet capture
-2. DNS Analysis
-3. TCP Analysis
-4. TLS Analysis
-5. HTTPS Analysis
+1. Start Packet Capture
+2. Open Google
+3. DNS Analysis
+4. TCP Analysis
+5. TLS Analysis
+6. HTTPS Analysis
 
 ## Step 1. Start Packet Capture
 
@@ -115,11 +117,15 @@ After the TCP connection was established, the client and the server were ready t
 Client
 [SYN]
 "Can we establish a connection?"
+
 ↓
+
 Server
 [SYN, ACK]
 "Sure! I received your request. Can you hear me too?"
+
 ↓
+
 Client
 [ACK]
 "Yes, I received your reply. Let's begin!"
@@ -188,44 +194,57 @@ HTTPS = HTTP + TLS
 
 Each new TCP connection starts a separate TLS handshake, so multiple Client Hello messages are expected.
 
-koko
+
 
 ## Step 5 - HTTPS Analysis
+<img width="482" height="202" alt="Screenshot6" src="https://github.com/user-attachments/assets/5911e93c-321a-4d0c-8ed6-25abd267e5c8" />
 
-HTTPS traffic appeared as TLS Application Data in Wireshark.
+<img width="640" height="163" alt="Screenshot7" src="https://github.com/user-attachments/assets/0c21d276-6738-4e3d-afd3-6ab534281f94" />
 
-The HTTP content was not readable because it was encrypted by TLS.
+
+HTTPS traffic appeared as **Application Data** because it was encrypted by TLS.
+The HTTP contents were not readable because they were encrypted by TLS.
 
 ### Questions I Had
 
-why is there no showing?
+**Q. Why doesn't the `http` display filter show any packets when I open Google?**
+
+Google uses **HTTPS**, not HTTP.
+HTTPS encrypts HTTP traffic using TLS, so Wireshark displays the traffic as **TLS** and **Application Data** instead of HTTP. This is why the `http` display filter does not match any packets.
 
 
+**Q. Why does the “https” filter turn red?**
 
-Q. Why does the “https” filter turn red?
-Answer
-Wireshark does not treat HTTPS as a separate protocol. HTTPS traffic is displayed as TLS because the HTTP data is encrypted.
+Wireshark does not treat HTTPS as a separate protocol. Wireshark displays HTTPS traffic as TLS because the HTTP data is encrypted.
 
-Q. Why can’t I see the contents of HTTPS packets?
-Answer
-After the TLS handshake, the application data is encrypted, so Wireshark displays it as Application Data instead of readable HTTP messages.
+**Q. Why can’t I see the contents of HTTPS packets?**
+
+After the TLS handshake, the application data is encrypted, so Wireshark displays it as **Application Data** instead of readable HTTP messages.
 
 
 ## Reflection
 
-Before this project, I thought opening a website involved one simple connection.
+Before this project, I thought opening a website involved only one simple connection.
 
-By analyzing the packets, I learned that opening one website involves DNS queries, TCP connections, TLS handshakes, and encrypted application data.
+By analyzing the packets, I learned that opening a single website involves DNS queries, TCP connections, TLS handshakes, and encrypted application data.
 
 This project helped me understand how web browsers communicate securely with servers.
 
+Through this project, I gained a much deeper understanding of DNS, TCP, TLS, and how they work together.
+
+It also increased my interest in networking and cybersecurity.
+
+I'm glad I chose to learn Wireshark because this project helped me discover what I'm truly interested in.
+
+
 ## Skills Demonstrated
 
-- Packet Capture
-- DNS Analysis
-- TCP Analysis
-- TLS Analysis
-- HTTPS Communication
-- Wireshark Filtering
-- Network Troubleshooting
+- Packet Capture with Wireshark
+- Display Filters (`dns`, `tcp`, `tls`)
+- DNS Resolution Analysis
+- TCP Three-Way Handshake Analysis
+- TLS Handshake Analysis
+- HTTPS Traffic Analysis
+- Basic Network Troubleshooting
+- Technical Documentation
 
