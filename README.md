@@ -84,7 +84,7 @@ Some applications and Windows services continue communicating in the background,
 
 ## DNS Analysis
 The computer first sent a DNS query to look up the IP address of www.google.com.
-After receiving the DNS response, the browser was able to connect to Google's server.
+After receiving the DNS response, the browser was able to connect to Google's web server.
 DNS translates a domain name into an IP address before the browser connects to the web server.
 
 
@@ -138,7 +138,7 @@ TCP divides large amounts of data into smaller packets. This makes communication
 
 **Q. Why are there so many ACK packets?**
 
-Each time a packet is received, the receiver sends an ACK packet to confirm its arrival.
+Each time a packet is received, the receiver sends an ACK packet to confirm that it was received successfully.
 
 
 
@@ -219,7 +219,7 @@ Wireshark does not treat HTTPS as a separate protocol. Wireshark displays HTTPS 
 
 **Q. Why can’t I see the contents of HTTPS packets?**
 
-After the TLS handshake, the application data is encrypted, so Wireshark displays it as **Application Data** instead of readable HTTP messages.
+After the TLS handshake, the **Application data** is encrypted, so Wireshark displays it as **Application Data** instead of readable HTTP messages.
 
 
 ## Reflection
