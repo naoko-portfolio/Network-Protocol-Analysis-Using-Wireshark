@@ -74,21 +74,22 @@ Some applications and Windows services continue communicating in the background,
 
 <img width="944" height="329" alt="Screenshot3" src="https://github.com/user-attachments/assets/7d751431-9d85-4375-a816-c0876e6c6662" />
 
-- Filter dns
+- Applied the `dns` display filter.
+- Analyzed the DNS query and response.
 
 <img width="449" height="133" alt="figma_dns" src="https://github.com/user-attachments/assets/5162e0d6-d68c-40c2-8c97-9511c4daef4c" />
 
 
 ## DNS Analysis
 The computer first sent a DNS query to look up the IP address of www.google.com.
-After receiving the DNS response, it was able to connect to Google's server.
+After receiving the DNS response, the browser was able to connect to Google's server.
 DNS translates a domain name into an IP address before the browser connects to the web server.
 
 
 ### Questions I Had
 **Q. What is DNS?**
 
-DNS (Domain Name System) translates a domain name such as www.google.com into an IP address so the browser knows where to connect.
+DNS (Domain Name System) translates a domain name such as www.google.com into an IP address, allowing the browser to connect to the correct web server.
 
 **Q. Why do I see multiple DNS queries for Google?**
 
@@ -97,11 +98,32 @@ A browser may send multiple DNS requests for different records or repeat queries
 
 ## Step 3 - TCP Analysis
 
-The computer established a TCP connection with the web server using the three-way handshake.
+<img width="763" height="311" alt="Screenshot4_tcp" src="https://github.com/user-attachments/assets/73b8f25c-52d2-478c-af34-e56c8294c685" />
 
+- Applied the `tcp` display filter.
+- Analyzed the TCP three-way handshake.
+
+<img width="329" height="107" alt="tcp" src="https://github.com/user-attachments/assets/d6fdeb05-cd2d-4960-b379-d52d3b3e2eb6" />
+
+## TCP Analysis
+The browser established a TCP connection with the web server using the three-way handshake.
 The connection was established through the sequence **SYN → SYN, ACK → ACK**.
-
 After the TCP connection was established, the client and the server were ready to exchange data reliably.
+
+
+### TCP Handshake
+Client
+[SYN]
+"Can we establish a connection?"
+↓
+Server
+[SYN, ACK]
+"Sure! I received your request. Can you hear me too?"
+↓
+Client
+[ACK]
+"Yes, I received your reply. Let's begin!"
+
 
 ### Questions I Had
 **Q. Why is data sent in many small packets instead of one large packet?**
@@ -110,32 +132,63 @@ TCP divides large amounts of data into smaller packets. This makes communication
 
 **Q. Why are there so many ACK packets?**
 
-Each time a packet is received successfully, the receiver sends an ACK packet to confirm its arrival.
+Each time a packet is received, the receiver sends an ACK packet to confirm its arrival.
 
 
 
 ## Step 4 - TLS Analysis
 
+<img width="1594" height="769" alt="Screenshot5" src="https://github.com/user-attachments/assets/0cc1e1cd-854b-4bf4-91ae-10c3a665a8b9" />
+
+- Applied the `tls` display filter.
+- Observed the TLS handshake.
+
+<img width="515" height="218" alt="tls" src="https://github.com/user-attachments/assets/88b4822f-73a7-4131-9a41-c253ffff67e6" />
+
+### TLS Handshake
+
+1. Client Hello
+   - The client requests a secure TLS connection.
+
+2. Server Hello
+   - The server accepts the TLS connection and sends its certificate.
+
+3. Client Key Exchange
+   - The client sends the information needed to create the encryption key.
+
+4. Change Cipher Spec
+   - Both sides switch to encrypted communication.
+
+5. Encrypted Handshake Message
+   - The TLS handshake is completed securely.
+
+6. Application Data
+   - All application data is now encrypted.
+     
+  
+## TLS Analysis
+
 After the TCP connection was established, the client and server started the TLS handshake.
+After the key exchange, all application data was encrypted.
+As a result, Wireshark displayed the traffic as **Application Data** instead of showing the actual HTTP contents.
 
-The client asked to use TLS, and the server agreed.
-
-After key exchange information was shared, the communication became encrypted.
 
 ### Questions I Had
 
-Q. What is TLS?
-Answer
+**Q. What is TLS?**
+
 TLS (Transport Layer Security) encrypts communication between a client and a server to protect data during transmission.
 
-Q. Is TLS similar to HTTPS?
-Answer
+**Q. Is TLS similar to HTTPS?**
+
 HTTPS uses TLS to encrypt HTTP communication. In other words:
 HTTPS = HTTP + TLS
-Q. Why do I see multiple Client Hello messages?
-Answer
+
+**Q. Why do I see multiple Client Hello messages?**
+
 Each new TCP connection starts a separate TLS handshake, so multiple Client Hello messages are expected.
 
+koko
 
 ## Step 5 - HTTPS Analysis
 
