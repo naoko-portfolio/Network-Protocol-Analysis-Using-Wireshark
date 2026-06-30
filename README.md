@@ -143,8 +143,6 @@ Each time a packet is received, the receiver sends an ACK packet to confirm its 
 - Applied the `tls` display filter.
 - Observed the TLS handshake.
 
-<img width="515" height="218" alt="tls" src="https://github.com/user-attachments/assets/88b4822f-73a7-4131-9a41-c253ffff67e6" />
-
 ### TLS Handshake
 
 1. Client Hello
@@ -164,7 +162,9 @@ Each time a packet is received, the receiver sends an ACK packet to confirm its 
 
 6. Application Data
    - All application data is now encrypted.
-     
+
+<img width="515" height="218" alt="tls" src="https://github.com/user-attachments/assets/88b4822f-73a7-4131-9a41-c253ffff67e6" />
+
   
 ## TLS Analysis
 
