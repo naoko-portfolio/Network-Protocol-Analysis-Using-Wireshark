@@ -202,8 +202,8 @@ Each new TCP connection starts a separate TLS handshake, so multiple Client Hell
 <img width="640" height="163" alt="Screenshot7" src="https://github.com/user-attachments/assets/0c21d276-6738-4e3d-afd3-6ab534281f94" />
 
 
-HTTPS traffic appeared as **Application Data** because it was encrypted by TLS.
-The HTTP contents were not readable because they were encrypted by TLS.
+HTTPS traffic appeared as **Application Data** in Wireshark.
+Unlike HTTP, HTTPS encrypts its contents using TLS, so the actual HTTP messages were not visible.
 
 ### Questions I Had
 
